@@ -20,9 +20,7 @@
   [_ ^OutputStream os]
   (let [writer (BufferedWriter. (OutputStreamWriter. os StandardCharsets/UTF_8))]
     (reify i/StreamingResultsWriter
-      (begin! [_ {{:keys [cols]} :data}]
-        (csv/write-csv writer [(map (some-fn :display_name :name) cols)])
-        (.flush writer))
+      (begin! [_ {{:keys [cols]} :data}])
 
       (write-row! [_ row row-num]
         (csv/write-csv writer [(map common/format-value row)])
